@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var (--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add background shapes - Subtle */
+@layer utilities {
+  /* Existing shapes on main */
+  main::before,
+  main::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    border-radius: 2rem;
+    opacity: 0.5; /* Set opacity to 0.5 */
+    filter: blur(60px); /* Re-added blur */
+    @apply dark:opacity-30; /* Adjusted dark opacity */
+  }
+
+  main::before {
+    width: 35rem;
+    height: 35rem;
+    background-color: theme('colors.cyan.200'); /* Subtle color */
+    top: -12rem;
+    left: -18rem;
+    transform: rotate(-35deg);
+    @apply dark:bg-cyan-800;
+  }
+
+  main::after {
+    width: 45rem;
+    height: 45rem;
+    background-color: theme('colors.rose.200'); /* Subtle color */
+    bottom: -18rem;
+    right: -22rem;
+    transform: rotate(30deg);
+    @apply dark:bg-rose-900;
+  }
+
+  /* New dedicated shape elements */
+  .bg-shape {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      border-radius: 3rem;
+      opacity: 0.5; /* Set opacity to 0.5 */
+      filter: blur(70px); /* Re-added blur */
+      @apply dark:opacity-30; /* Adjusted dark opacity */
+  }
+
+  .bg-shape-1 {
+      width: 25rem;
+      height: 25rem;
+      background-color: theme('colors.teal.200'); /* Subtle color */
+      top: 20%;
+      right: 5%;
+      transform: rotate(15deg);
+      @apply dark:bg-teal-800;
+  }
+
+  .bg-shape-2 {
+      width: 20rem;
+      height: 20rem;
+      background-color: theme('colors.orange.200'); /* Subtle color */
+      bottom: 10%;
+      left: 2%;
+      transform: rotate(-10deg);
+      @apply dark:bg-orange-900;
+  }
+
+  /* Ensure content stays above the shapes */
+  main > * {
+    position: relative;
+    z-index: 1;
+  }
+}
